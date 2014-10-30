@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+. ${INSTALLER_DIR}/wizard
+
+CLI="${APP_NAME}"
+
+${CLI} run rake errbit:bootstrap
+
+# scale
+${CLI} scale web=1 || true
+
+# restart
+service ${APP_NAME} restart
